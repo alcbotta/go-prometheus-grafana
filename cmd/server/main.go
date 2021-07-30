@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -12,7 +13,7 @@ import (
 var userStatus = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
 		Name: "http_request_get_user_status_count", // metric name
-		Help: "Number status returned by user.",
+		Help: "Count of status returned by user.",
 	},
 	[]string{"user", "status"}, // labels
 )
@@ -21,31 +22,26 @@ func init() {
 	prometheus.MustRegister(userStatus)
 }
 
-
+type MyRequest struct {
+	User   string
+	Status string
+}
 
 func myhandler(w http.ResponseWriter, r *http.Request) {
 	var status string
+	var user string
 	defer func() {
-        // increment the counter on defer func
-		getBookCounter.WithLabelValues(status).Inc()
+		// increment the counter on defer func
+		userStatus.WithLabelValues(user, status).Inc()
 	}()
+	var mr MyRequest
+	json.NewDecoder(r.Body).Decode(&mr)
 
-	books, err := getBooks()
-	if err != nil {
-		status = "error"
-		w.Write([]byte("something's wrong: " + err.Error()))
-		return
-	}
+	status = mr.Status
+	user = mr.User
+	log.Println(user, status)
+	w.Write([]byte(status))
 
-	resp, err := json.Marshal(books)
-	if err != nil {
-		status = "error"
-		w.Write([]byte("something's wrong: " + err.Error()))
-		return
-	}
-
-	status = "success"
-	w.Write(resp)
 }
 
 func main() {
