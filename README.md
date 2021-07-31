@@ -1,6 +1,6 @@
 # Monitoring your Golang server with Prometheus and Grafana
 
-This is the source code for my article on [Medium]().
+This is the source code for my article on [Medium](https://medium.com/@alcbotta/monitoring-you-golang-server-with-prometheus-and-grafana-97e64bb1d0e9).
 
 The application is a very simple example on how you can use Prometheus to collect information from your application and then use Grafana to visualise the information collected.
 
