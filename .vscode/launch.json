@@ -9,14 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/cmd/server/main.go"
-        },
-        {
-            "name": "Launch Producer",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}/cmd/producer/main.go"
+            "program": "${workspaceFolder}/main.go"
         }
     ]
 }
