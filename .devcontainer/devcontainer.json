@@ -1,0 +1,9 @@
+{
+  "name": "go-prometheus-grafana",
+  "dockerComposeFile": ["../docker-compose-dev-vscode.yml"],
+  "service": "server",
+  "workspaceFolder": "/opt/project",
+  "shutdownAction": "none",
+  "extensions": ["golang.Go"],
+  "remoteUser": "vscode"
+}
